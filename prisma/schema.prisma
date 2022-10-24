@@ -6,6 +6,59 @@ generator client {
 }
 
 datasource db {
-  provider = "mysql"
-  url      = env("DATABASE_URL")
+  provider          = "mysql"
+  url               = env("DATABASE_URL")
+  shadowDatabaseUrl = env("SHADOW_BASE_URL")
+}
+
+model Admin {
+  id       Int    @id @default(autoincrement())
+  name     String
+  email    String @unique
+  password String
+}
+
+model User {
+  id              Int             @id @default(autoincrement())
+  name            String
+  created_at      DateTime        @default(now())
+  cellphone       String
+  wa_id           String
+  custom_services CustomService[]
+  Message         Message[]
+}
+
+model Attendant {
+  id         Int      @id @default(autoincrement())
+  name       String
+  cellphone  String
+  wa_id      String
+  created_at DateTime @default(now())
+  role       Role     @relation(fields: [role_id], references: [id])
+  role_id    Int
+}
+
+model CustomService {
+  id          String    @id @default(uuid())
+  created_at  DateTime  @default(now())
+  finished_at DateTime?
+  messages    Message[]
+  user        User      @relation(fields: [user_id], references: [id])
+  user_id     Int
+}
+
+model Message {
+  id                Int            @id @default(autoincrement())
+  created_at        DateTime       @default(now())
+  text              String
+  custom_service    CustomService? @relation(fields: [custom_service_id], references: [id])
+  custom_service_id String?
+  user              User           @relation(fields: [user_id], references: [id])
+  user_id           Int
+}
+
+model Role {
+  role_name  String
+  id         Int         @id @default(autoincrement())
+  attendants Attendant[]
 }
