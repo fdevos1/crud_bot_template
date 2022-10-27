@@ -24,7 +24,7 @@ model User {
   name            String
   created_at      DateTime        @default(now())
   cellphone       String
-  wa_id           String
+  wa_id           String          @unique
   custom_services CustomService[]
   Message         Message[]
 

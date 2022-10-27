@@ -1,13 +1,13 @@
 import { Request, Response } from "express";
-import { CreateUserUseCase } from "./CreateUserUseCase";
+import { CreateAdminUseCase } from "./CreateAdminUseCase";
 
-export class CreateUserController {
+export class CreateAdminController {
   async handle(req: Request, res: Response) {
     const { name, email, password } = req.body;
 
-    const createUserUseCase = new CreateUserUseCase();
+    const createAdminUseCase = new CreateAdminUseCase();
 
-    const user = await createUserUseCase.execute({
+    const user = await createAdminUseCase.execute({
       name,
       email,
       password,

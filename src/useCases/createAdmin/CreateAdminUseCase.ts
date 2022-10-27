@@ -7,7 +7,7 @@ interface IUserRequest {
   password: string;
 }
 
-export class CreateUserUseCase {
+export class CreateAdminUseCase {
   async execute({ name, email, password }: IUserRequest) {
     const userAlreadyExist = await prismaClient.admin.findFirst({
       where: {
