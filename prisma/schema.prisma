@@ -12,20 +12,23 @@ datasource db {
 }
 
 model Admin {
-  id       Int    @id @default(autoincrement())
-  name     String
-  email    String @unique
-  password String
+  id            Int           @id @default(autoincrement())
+  name          String
+  email         String        @unique
+  password      String
+  refresh_token RefreshToken?
 }
 
 model User {
-  id              Int             @id @default(autoincrement())
+  user_id         Int             @id @default(autoincrement())
   name            String
   created_at      DateTime        @default(now())
   cellphone       String
   wa_id           String
   custom_services CustomService[]
   Message         Message[]
+
+  @@map("users")
 }
 
 model Attendant {
@@ -36,6 +39,8 @@ model Attendant {
   created_at DateTime @default(now())
   role       Role     @relation(fields: [role_id], references: [id])
   role_id    Int
+
+  @@map("attendants")
 }
 
 model CustomService {
@@ -43,8 +48,10 @@ model CustomService {
   created_at  DateTime  @default(now())
   finished_at DateTime?
   messages    Message[]
-  user        User      @relation(fields: [user_id], references: [id])
-  user_id     Int
+  user        User      @relation(fields: [u_id], references: [user_id])
+  u_id        Int
+
+  @@map("services")
 }
 
 model Message {
@@ -53,12 +60,25 @@ model Message {
   text              String
   custom_service    CustomService? @relation(fields: [custom_service_id], references: [id])
   custom_service_id String?
-  user              User           @relation(fields: [user_id], references: [id])
-  user_id           Int
+  user              User           @relation(fields: [u_id], references: [user_id])
+  u_id              Int
+
+  @@map("messages")
 }
 
 model Role {
   role_name  String
   id         Int         @id @default(autoincrement())
   attendants Attendant[]
+
+  @@map("roles")
+}
+
+model RefreshToken {
+  id        String @id @default(uuid())
+  expiresIn Int
+  user      Admin  @relation(fields: [u_id], references: [id])
+  u_id      Int    @unique
+
+  @@map("refreshToken")
 }
