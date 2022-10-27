@@ -1,8 +1,12 @@
 import { Router } from "express";
 import { CreateCustomServiceController } from "./controllers/CustomService/CreateCustomServiceController";
+import { GetCustomServiceController } from "./controllers/CustomService/GetCustomServiceController";
 import { CreateMessageController } from "./controllers/Message/CreateMessageController";
+import { GetMessageController } from "./controllers/Message/GetMessageController";
 import { CreateRoleController } from "./controllers/Role/CreateRoleController";
+import { GetRoleController } from "./controllers/Role/GetRoleController";
 import { CreateUserController } from "./controllers/User/CreateUserController";
+import { GetUserController } from "./controllers/User/GetUserController";
 import { AuthenticateUserController } from "./useCases/authenticateUser/AuthenticateUserControllers";
 import { CreateAdminController } from "./useCases/createAdmin/CreateAdminController";
 import { RefreshTokenController } from "./useCases/refreshToken/RefreshTokenController";
@@ -22,6 +26,11 @@ const createCustomServiceController = new CreateCustomServiceController();
 const createRoleController = new CreateRoleController();
 const createMessageController = new CreateMessageController();
 
+const getUserController = new GetUserController();
+const getCustomServiceController = new GetCustomServiceController();
+const getRoleController = new GetRoleController();
+const getMessageController = new GetMessageController();
+
 router.post("/create-admin", createAdminController.handle);
 router.post("/login", authenticateUserController.handle);
 router.post("/refresh-token", refreshTokenController.handle);
@@ -29,5 +38,10 @@ router.post("/create-user", createUserController.handle);
 router.post("/create-custom-service", createCustomServiceController.handle);
 router.post("/create-role", createRoleController.handle);
 router.post("/create-message", createMessageController.handle);
+
+router.get("/users", getUserController.handle);
+router.get("/custom-service", getCustomServiceController.handle);
+router.get("/roles", getRoleController.handle);
+router.get("/messages", getMessageController.handle);
 
 export { router };
