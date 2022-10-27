@@ -29,6 +29,12 @@ export class AuthenticateUserUseCase {
     const generateToken = new GenerateTokenProvider();
     const token = await generateToken.execute(userAlreadyExist.id);
 
+    await prismaClient.refreshToken.deleteMany({
+      where: {
+        u_id: userAlreadyExist.id,
+      },
+    });
+
     const generateRefreshToken = new GenerateRefreshToken();
     const refreshToken = await generateRefreshToken.execute(
       userAlreadyExist.id
