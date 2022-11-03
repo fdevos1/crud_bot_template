@@ -23,8 +23,8 @@ model User {
   user_id         Int             @id @default(autoincrement())
   name            String
   created_at      DateTime        @default(now())
-  cellphone       String
-  wa_id           String          @unique
+  cellphone       String          @unique
+  wa_id           String
   custom_services CustomService[]
   Message         Message[]
 
@@ -44,12 +44,12 @@ model Attendant {
 }
 
 model CustomService {
-  id          String    @id @default(uuid())
-  created_at  DateTime  @default(now())
-  finished_at DateTime?
-  messages    Message[]
-  user        User      @relation(fields: [u_id], references: [user_id])
-  u_id        Int
+  id             String    @id @default(uuid())
+  created_at     DateTime  @default(now())
+  finished_at    DateTime?
+  messages       Message[]
+  user           User?     @relation(fields: [user_cellphone], references: [cellphone])
+  user_cellphone String
 
   @@map("services")
 }

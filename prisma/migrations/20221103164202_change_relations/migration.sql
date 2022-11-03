@@ -1,52 +1,24 @@
-/*
-  Warnings:
+-- CreateTable
+CREATE TABLE `Admin` (
+    `id` INTEGER NOT NULL AUTO_INCREMENT,
+    `name` VARCHAR(191) NOT NULL,
+    `email` VARCHAR(191) NOT NULL,
+    `password` VARCHAR(191) NOT NULL,
 
-  - You are about to drop the `attendant` table. If the table is not empty, all the data it contains will be lost.
-  - You are about to drop the `customservice` table. If the table is not empty, all the data it contains will be lost.
-  - You are about to drop the `message` table. If the table is not empty, all the data it contains will be lost.
-  - You are about to drop the `role` table. If the table is not empty, all the data it contains will be lost.
-  - You are about to drop the `user` table. If the table is not empty, all the data it contains will be lost.
-
-*/
--- DropForeignKey
-ALTER TABLE `attendant` DROP FOREIGN KEY `Attendant_role_id_fkey`;
-
--- DropForeignKey
-ALTER TABLE `customservice` DROP FOREIGN KEY `CustomService_user_id_fkey`;
-
--- DropForeignKey
-ALTER TABLE `message` DROP FOREIGN KEY `Message_custom_service_id_fkey`;
-
--- DropForeignKey
-ALTER TABLE `message` DROP FOREIGN KEY `Message_user_id_fkey`;
-
--- DropForeignKey
-ALTER TABLE `refreshtoken` DROP FOREIGN KEY `RefreshToken_user_id_fkey`;
-
--- DropTable
-DROP TABLE `attendant`;
-
--- DropTable
-DROP TABLE `customservice`;
-
--- DropTable
-DROP TABLE `message`;
-
--- DropTable
-DROP TABLE `role`;
-
--- DropTable
-DROP TABLE `user`;
+    UNIQUE INDEX `Admin_email_key`(`email`),
+    PRIMARY KEY (`id`)
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- CreateTable
 CREATE TABLE `users` (
-    `id` INTEGER NOT NULL AUTO_INCREMENT,
+    `user_id` INTEGER NOT NULL AUTO_INCREMENT,
     `name` VARCHAR(191) NOT NULL,
     `created_at` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
     `cellphone` VARCHAR(191) NOT NULL,
     `wa_id` VARCHAR(191) NOT NULL,
 
-    PRIMARY KEY (`id`)
+    UNIQUE INDEX `users_cellphone_key`(`cellphone`),
+    PRIMARY KEY (`user_id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- CreateTable
@@ -66,7 +38,7 @@ CREATE TABLE `services` (
     `id` VARCHAR(191) NOT NULL,
     `created_at` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
     `finished_at` DATETIME(3) NULL,
-    `user_id` INTEGER NOT NULL,
+    `user_cellphone` VARCHAR(191) NOT NULL,
 
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
@@ -77,7 +49,7 @@ CREATE TABLE `messages` (
     `created_at` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
     `text` VARCHAR(191) NOT NULL,
     `custom_service_id` VARCHAR(191) NULL,
-    `user_id` INTEGER NOT NULL,
+    `u_id` INTEGER NOT NULL,
 
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
@@ -90,17 +62,27 @@ CREATE TABLE `roles` (
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
+-- CreateTable
+CREATE TABLE `refreshToken` (
+    `id` VARCHAR(191) NOT NULL,
+    `expiresIn` INTEGER NOT NULL,
+    `u_id` INTEGER NOT NULL,
+
+    UNIQUE INDEX `refreshToken_u_id_key`(`u_id`),
+    PRIMARY KEY (`id`)
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
 -- AddForeignKey
 ALTER TABLE `attendants` ADD CONSTRAINT `attendants_role_id_fkey` FOREIGN KEY (`role_id`) REFERENCES `roles`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE `services` ADD CONSTRAINT `services_user_id_fkey` FOREIGN KEY (`user_id`) REFERENCES `users`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE `services` ADD CONSTRAINT `services_user_cellphone_fkey` FOREIGN KEY (`user_cellphone`) REFERENCES `users`(`cellphone`) ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE `messages` ADD CONSTRAINT `messages_custom_service_id_fkey` FOREIGN KEY (`custom_service_id`) REFERENCES `services`(`id`) ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE `messages` ADD CONSTRAINT `messages_user_id_fkey` FOREIGN KEY (`user_id`) REFERENCES `users`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE `messages` ADD CONSTRAINT `messages_u_id_fkey` FOREIGN KEY (`u_id`) REFERENCES `users`(`user_id`) ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE `refreshToken` ADD CONSTRAINT `refreshToken_user_id_fkey` FOREIGN KEY (`user_id`) REFERENCES `users`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE `refreshToken` ADD CONSTRAINT `refreshToken_u_id_fkey` FOREIGN KEY (`u_id`) REFERENCES `Admin`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
