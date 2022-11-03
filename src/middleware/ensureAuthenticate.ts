@@ -17,7 +17,7 @@ export function ensureAuthenticate(
   const [, token] = authToken.split(" ");
 
   try {
-    verify(token, "97e8ec6e-f6cd-43c8-a338-77fddc67a086");
+    verify(token, "046c3ca0-5b77-11ed-9b6a-0242ac120002");
 
     return next();
   } catch (err) {
