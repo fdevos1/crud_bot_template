@@ -7,7 +7,7 @@ export class FinishCustomServiceService {
         id,
       },
       data: {
-        finished_at: Date.now(),
+        finished_at: new Date(),
       },
     });
 
