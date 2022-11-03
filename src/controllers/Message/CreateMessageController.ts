@@ -4,11 +4,11 @@ import { CreateMessageService } from "../../services/Message/CreateMessageServic
 
 export class CreateMessageController {
   async handle(req: Request, res: Response) {
-    const { text, wa_id } = req.body;
+    const { text, cellphone } = req.body;
 
     const user = await prismaClient.user.findFirst({
       where: {
-        wa_id,
+        cellphone,
       },
     });
 
@@ -17,14 +17,14 @@ export class CreateMessageController {
 
       const customService = await prismaClient.customService.findFirst({
         where: {
-          u_id: user.user_id,
+          user_cellphone: user.cellphone,
         },
       });
 
       const response = await createMessageService.execute(
         text,
         customService!.id,
-        user.user_id
+        user.cellphone
       );
 
       return res.json(response);

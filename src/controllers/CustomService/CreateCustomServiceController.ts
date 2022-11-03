@@ -4,18 +4,18 @@ import { CreateCustomServiceService } from "../../services/CustomService/CreateC
 
 export class CreateCustomServiceController {
   async handle(req: Request, res: Response) {
-    const { wa_id } = req.body;
+    const { cellphone } = req.body;
 
     const createCustomServiceService = new CreateCustomServiceService();
 
     const user = await prismaClient.user.findFirst({
       where: {
-        wa_id,
+        cellphone,
       },
     });
 
     if (user) {
-      const response = await createCustomServiceService.execute(user.user_id);
+      const response = await createCustomServiceService.execute(user.cellphone);
       return res.json(response);
     }
   }

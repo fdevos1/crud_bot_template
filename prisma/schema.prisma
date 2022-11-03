@@ -60,8 +60,8 @@ model Message {
   text              String
   custom_service    CustomService? @relation(fields: [custom_service_id], references: [id])
   custom_service_id String?
-  user              User           @relation(fields: [u_id], references: [user_id])
-  u_id              Int
+  user              User           @relation(fields: [user_cellphone], references: [cellphone])
+  user_cellphone    String
 
   @@map("messages")
 }

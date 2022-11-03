@@ -1,10 +1,10 @@
 import { prismaClient } from "../../prisma/PrismaClient";
 
 export class CreateCustomServiceService {
-  async execute(u_id: number) {
+  async execute(user_cellphone: string) {
     const customService = await prismaClient.customService.create({
       data: {
-        u_id,
+        user_cellphone,
       },
     });
 

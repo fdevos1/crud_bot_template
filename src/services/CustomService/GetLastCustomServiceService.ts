@@ -1,10 +1,10 @@
 import { prismaClient } from "../../prisma/PrismaClient";
 
 export class GetLastCustomServiceService {
-  async execute(u_id: string) {
+  async execute(user_cellphone: string) {
     const customService = await prismaClient.customService.findFirst({
       where: {
-        u_id,
+        user_cellphone,
         finished_at: null,
       },
     });
