@@ -1,5 +1,4 @@
 import { Request, Response } from "express";
-import { prismaClient } from "../../prisma/PrismaClient";
 import { FinishCustomServiceService } from "../../services/CustomService/FinishCustomServiceService";
 
 export class FinishCustomServiceController {
