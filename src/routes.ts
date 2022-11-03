@@ -2,6 +2,7 @@ import { Router } from "express";
 import { CreateCustomServiceController } from "./controllers/CustomService/CreateCustomServiceController";
 import { FinishCustomServiceController } from "./controllers/CustomService/FinishCustomServiceController";
 import { GetCustomServiceController } from "./controllers/CustomService/GetCustomServiceController";
+import { GetLastCustomServiceController } from "./controllers/CustomService/GetLastCustomServiceController";
 import { CreateMessageController } from "./controllers/Message/CreateMessageController";
 import { GetMessageController } from "./controllers/Message/GetMessageController";
 import { CreateRoleController } from "./controllers/Role/CreateRoleController";
@@ -31,6 +32,7 @@ const getUserController = new GetUserController();
 const getCustomServiceController = new GetCustomServiceController();
 const getRoleController = new GetRoleController();
 const getMessageController = new GetMessageController();
+const getLastCustomService = new GetLastCustomServiceController();
 
 const finishCustomService = new FinishCustomServiceController();
 
@@ -46,6 +48,7 @@ router.get("/users", getUserController.handle);
 router.get("/custom-service", getCustomServiceController.handle);
 router.get("/roles", getRoleController.handle);
 router.get("/messages", getMessageController.handle);
+router.get("/get-last-service", getLastCustomService.handle);
 
 router.put("/finish-service", finishCustomService.handle);
 
