@@ -27,7 +27,7 @@ model User {
   wa_id           String
   custom_services CustomService[]
   Message         Message[]
-  Groups          Groups?         @relation(fields: [groups_id], references: [id])
+  Groups          Groups?         @relation(fields: [groups_id], references: [group_id])
   groups_id       Int?
 
   @@map("users")
@@ -86,7 +86,7 @@ model RefreshToken {
 }
 
 model Groups {
-  id           Int    @id @default(autoincrement())
+  group_id     Int    @id @default(autoincrement())
   subject      String
   group_name   String
   type         Int
