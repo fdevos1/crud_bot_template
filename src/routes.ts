@@ -1,16 +1,22 @@
 import { Router } from "express";
+
 import { CreateCustomServiceController } from "./controllers/CustomService/CreateCustomServiceController";
-import { FinishCustomServiceController } from "./controllers/CustomService/FinishCustomServiceController";
+import { CreateGroupController } from "./controllers/Groups/CreateGroupController";
+import { CreateMessageController } from "./controllers/Message/CreateMessageController";
+import { CreateRoleController } from "./controllers/Role/CreateRoleController";
+import { CreateUserController } from "./controllers/User/CreateUserController";
+import { CreateAdminController } from "./useCases/createAdmin/CreateAdminController";
+
 import { GetCustomServiceController } from "./controllers/CustomService/GetCustomServiceController";
 import { GetLastCustomServiceController } from "./controllers/CustomService/GetLastCustomServiceController";
-import { CreateMessageController } from "./controllers/Message/CreateMessageController";
 import { GetMessageController } from "./controllers/Message/GetMessageController";
-import { CreateRoleController } from "./controllers/Role/CreateRoleController";
+import { GetGroupController } from "./controllers/Groups/GetGroupController";
 import { GetRoleController } from "./controllers/Role/GetRoleController";
-import { CreateUserController } from "./controllers/User/CreateUserController";
 import { GetUserController } from "./controllers/User/GetUserController";
+
+import { FinishCustomServiceController } from "./controllers/CustomService/FinishCustomServiceController";
+
 import { AuthenticateUserController } from "./useCases/authenticateUser/AuthenticateUserControllers";
-import { CreateAdminController } from "./useCases/createAdmin/CreateAdminController";
 import { RefreshTokenController } from "./useCases/refreshToken/RefreshTokenController";
 
 const router = Router();
@@ -27,12 +33,14 @@ const createUserController = new CreateUserController();
 const createCustomServiceController = new CreateCustomServiceController();
 const createRoleController = new CreateRoleController();
 const createMessageController = new CreateMessageController();
+const createGroupController = new CreateGroupController();
 
 const getUserController = new GetUserController();
 const getCustomServiceController = new GetCustomServiceController();
 const getRoleController = new GetRoleController();
 const getMessageController = new GetMessageController();
-const getLastCustomService = new GetLastCustomServiceController();
+const getLastCustomServiceController = new GetLastCustomServiceController();
+const getGroupController = new GetGroupController();
 
 const finishCustomService = new FinishCustomServiceController();
 
@@ -43,12 +51,14 @@ router.post("/create-user", createUserController.handle);
 router.post("/create-custom-service", createCustomServiceController.handle);
 router.post("/create-role", createRoleController.handle);
 router.post("/create-message", createMessageController.handle);
+router.post("/create-group", createGroupController.handle);
 
 router.get("/users", getUserController.handle);
 router.get("/custom-service", getCustomServiceController.handle);
 router.get("/roles", getRoleController.handle);
 router.get("/messages", getMessageController.handle);
-router.get("/get-last-service", getLastCustomService.handle);
+router.get("/get-last-service", getLastCustomServiceController.handle);
+router.get("/get-group", getGroupController.handle);
 
 router.put("/finish-service", finishCustomService.handle);
 
