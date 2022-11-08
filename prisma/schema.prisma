@@ -22,7 +22,7 @@ model Admin {
 model User {
   user_id         Int             @id @default(autoincrement())
   name            String
-  created_at      DateTime        @default(now())
+  user_created_at DateTime        @default(now())
   cellphone       String          @unique
   wa_id           String
   custom_services CustomService[]
@@ -34,13 +34,13 @@ model User {
 }
 
 model Attendant {
-  id              Int      @id @default(autoincrement())
-  name            String
-  cellphone       String
-  wa_id           String
-  user_created_at DateTime @default(now())
-  role            Role     @relation(fields: [role_id], references: [id])
-  role_id         Int
+  id         Int      @id @default(autoincrement())
+  name       String
+  cellphone  String
+  wa_id      String
+  created_at DateTime @default(now())
+  role       Role     @relation(fields: [role_id], references: [id])
+  role_id    Int
 
   @@map("attendants")
 }
