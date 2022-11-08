@@ -18,6 +18,7 @@ import { FinishCustomServiceController } from "./controllers/CustomService/Finis
 
 import { AuthenticateUserController } from "./useCases/authenticateUser/AuthenticateUserControllers";
 import { RefreshTokenController } from "./useCases/refreshToken/RefreshTokenController";
+import { GetWaInfosController } from "./controllers/Groups/GetWaInfosController";
 
 const router = Router();
 
@@ -43,6 +44,7 @@ const getLastCustomServiceController = new GetLastCustomServiceController();
 const getGroupController = new GetGroupController();
 
 const finishCustomService = new FinishCustomServiceController();
+const getWaInfosController = new GetWaInfosController();
 
 router.post("/create-admin", createAdminController.handle);
 router.post("/login", authenticateUserController.handle);
@@ -64,5 +66,6 @@ router.get(
 router.get("/get-group", getGroupController.handle);
 
 router.put("/finish-service", finishCustomService.handle);
+router.put("/group-created", getWaInfosController.handle);
 
 export { router };
