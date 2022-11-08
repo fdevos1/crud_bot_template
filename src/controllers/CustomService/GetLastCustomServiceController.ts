@@ -3,7 +3,7 @@ import { GetLastCustomServiceService } from "../../services/CustomService/GetLas
 
 export class GetLastCustomServiceController {
   async handle(req: Request, res: Response) {
-    const { cellphone } = req.body;
+    const { cellphone } = req.params;
     const getCustomService = new GetLastCustomServiceService();
 
     const response = await getCustomService.execute(cellphone);

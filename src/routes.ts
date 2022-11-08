@@ -57,7 +57,10 @@ router.get("/users", getUserController.handle);
 router.get("/custom-service", getCustomServiceController.handle);
 router.get("/roles", getRoleController.handle);
 router.get("/messages", getMessageController.handle);
-router.get("/get-last-service", getLastCustomServiceController.handle);
+router.get(
+  "/get-last-service&user=:user_cellphone",
+  getLastCustomServiceController.handle
+);
 router.get("/get-group", getGroupController.handle);
 
 router.put("/finish-service", finishCustomService.handle);
