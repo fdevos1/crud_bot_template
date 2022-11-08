@@ -28,7 +28,7 @@ CREATE TABLE `attendants` (
     `name` VARCHAR(191) NOT NULL,
     `cellphone` VARCHAR(191) NOT NULL,
     `wa_id` VARCHAR(191) NOT NULL,
-    `created_at` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
+    `user_created_at` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
     `role_id` INTEGER NOT NULL,
 
     PRIMARY KEY (`id`)
@@ -47,7 +47,7 @@ CREATE TABLE `services` (
 -- CreateTable
 CREATE TABLE `messages` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
-    `created_at` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
+    `message_created_at` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
     `text` VARCHAR(191) NOT NULL,
     `custom_service_id` VARCHAR(191) NULL,
     `user_cellphone` VARCHAR(191) NOT NULL,
