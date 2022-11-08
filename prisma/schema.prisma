@@ -34,13 +34,13 @@ model User {
 }
 
 model Attendant {
-  id         Int      @id @default(autoincrement())
-  name       String
-  cellphone  String
-  wa_id      String
-  created_at DateTime @default(now())
-  role       Role     @relation(fields: [role_id], references: [id])
-  role_id    Int
+  id              Int      @id @default(autoincrement())
+  name            String
+  cellphone       String
+  wa_id           String
+  user_created_at DateTime @default(now())
+  role            Role     @relation(fields: [role_id], references: [id])
+  role_id         Int
 
   @@map("attendants")
 }
@@ -57,13 +57,13 @@ model CustomService {
 }
 
 model Message {
-  id                Int            @id @default(autoincrement())
-  created_at        DateTime       @default(now())
-  text              String
-  custom_service    CustomService? @relation(fields: [custom_service_id], references: [id])
-  custom_service_id String?
-  user              User           @relation(fields: [user_cellphone], references: [cellphone])
-  user_cellphone    String
+  id                 Int            @id @default(autoincrement())
+  message_created_at DateTime       @default(now())
+  text               String
+  custom_service     CustomService? @relation(fields: [custom_service_id], references: [id])
+  custom_service_id  String?
+  user               User           @relation(fields: [user_cellphone], references: [cellphone])
+  user_cellphone     String
 
   @@map("messages")
 }
