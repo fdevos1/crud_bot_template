@@ -86,9 +86,11 @@ model RefreshToken {
 }
 
 model Groups {
-  group_id     Int    @id @default(autoincrement())
-  subject      String
-  group_name   String
-  type         Int
-  participants User[]
+  group_id      Int     @id @default(autoincrement())
+  subject       String
+  group_name    String
+  type          Int
+  participants  User[]
+  created_on_wa Boolean @default(false)
+  wa_group_id   String?
 }
