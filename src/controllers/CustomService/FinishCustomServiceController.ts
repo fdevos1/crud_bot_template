@@ -3,12 +3,11 @@ import { FinishCustomServiceService } from "../../services/CustomService/FinishC
 
 export class FinishCustomServiceController {
   async handle(req: Request, res: Response) {
-    const { finished_at } = req.body;
-    const { id } = req.params;
+    const { id } = req.body;
 
     const finishCustomServiceService = new FinishCustomServiceService();
 
-    const response = await finishCustomServiceService.execute(finished_at, id);
+    const response = await finishCustomServiceService.execute(id);
     return res.json(response);
   }
 }
