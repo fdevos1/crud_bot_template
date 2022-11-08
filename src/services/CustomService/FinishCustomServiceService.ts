@@ -1,7 +1,7 @@
 import { prismaClient } from "../../prisma/PrismaClient";
 
 export class FinishCustomServiceService {
-  async execute(id: string) {
+  async execute(finished_at: Date, id: string) {
     const now = new Date();
 
     const customService = await prismaClient.customService.update({

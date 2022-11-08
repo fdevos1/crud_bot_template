@@ -60,6 +60,9 @@ router.get("/messages", getMessageController.handle);
 router.get("/get-last-service", getLastCustomServiceController.handle);
 router.get("/get-group", getGroupController.handle);
 
-router.put("/finish-service", finishCustomService.handle);
+router.put(
+  "/finish-service&service_id=:service_id",
+  finishCustomService.handle
+);
 
 export { router };
