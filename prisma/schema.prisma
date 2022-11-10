@@ -48,7 +48,7 @@ model Attendant {
 model CustomService {
   id             String    @id @default(uuid())
   created_at     DateTime  @default(now())
-  finished_at    DateTime?
+  finished_at    DateTime  @default(now())
   messages       Message[]
   user           User?     @relation(fields: [user_cellphone], references: [cellphone])
   user_cellphone String
