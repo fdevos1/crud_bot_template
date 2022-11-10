@@ -38,7 +38,7 @@ CREATE TABLE `attendants` (
 CREATE TABLE `services` (
     `id` VARCHAR(191) NOT NULL,
     `created_at` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
-    `finished_at` DATETIME(3) NULL,
+    `finished_at` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
     `user_cellphone` VARCHAR(191) NOT NULL,
 
     PRIMARY KEY (`id`)
@@ -79,6 +79,8 @@ CREATE TABLE `Groups` (
     `subject` VARCHAR(191) NOT NULL,
     `group_name` VARCHAR(191) NOT NULL,
     `type` INTEGER NOT NULL,
+    `created_on_wa` BOOLEAN NOT NULL DEFAULT false,
+    `wa_group_id` VARCHAR(191) NULL,
 
     PRIMARY KEY (`group_id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
