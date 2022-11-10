@@ -40,6 +40,12 @@ export class AuthenticateUserUseCase {
       userAlreadyExist.id
     );
 
-    return { token, refreshToken };
+    const loggedUser = await prismaClient.admin.findFirst({
+      where: {
+        email,
+      },
+    });
+
+    return { token, refreshToken, loggedUser };
   }
 }
