@@ -21,6 +21,8 @@ import { FinishCustomServiceController } from "./controllers/CustomService/Finis
 import { AuthenticateUserController } from "./useCases/authenticateUser/AuthenticateUserControllers";
 import { RefreshTokenController } from "./useCases/refreshToken/RefreshTokenController";
 import { GetWaInfosController } from "./controllers/Groups/GetWaInfosController";
+import { UserOnAttendanceController } from "./controllers/User/UserOnAttendance";
+import { UserOutAttendanceController } from "./controllers/User/UserOutAttendance";
 
 const router = Router();
 
@@ -47,8 +49,10 @@ const getLastCustomServiceController = new GetLastCustomServiceController();
 const getGroupController = new GetGroupController();
 const getSurveyController = new GetSurveyController();
 
-const finishCustomService = new FinishCustomServiceController();
+const finishCustomController = new FinishCustomServiceController();
 const getWaInfosController = new GetWaInfosController();
+const userOnAttendanceController = new UserOnAttendanceController();
+const userOutAttendanceController = new UserOutAttendanceController();
 
 router.post("/create-admin", createAdminController.handle);
 router.post("/login", authenticateUserController.handle);
@@ -71,7 +75,9 @@ router.get(
 router.get("/get-group", getGroupController.handle);
 router.get("/get-survey", getSurveyController.handle);
 
-router.put("/finish-service", finishCustomService.handle);
+router.put("/finish-service", finishCustomController.handle);
 router.put("/group-created", getWaInfosController.handle);
+router.put("/user-on-attendance", userOnAttendanceController.handle);
+router.put("/user-out-attendance", userOutAttendanceController.handle);
 
 export { router };
