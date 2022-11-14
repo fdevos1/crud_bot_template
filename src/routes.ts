@@ -6,6 +6,7 @@ import { CreateMessageController } from "./controllers/Message/CreateMessageCont
 import { CreateRoleController } from "./controllers/Role/CreateRoleController";
 import { CreateUserController } from "./controllers/User/CreateUserController";
 import { CreateAdminController } from "./useCases/createAdmin/CreateAdminController";
+import { CreateSurveyController } from "./controllers/Survey/CreateSurveyController";
 
 import { GetCustomServiceController } from "./controllers/CustomService/GetCustomServiceController";
 import { GetLastCustomServiceController } from "./controllers/CustomService/GetLastCustomServiceController";
@@ -13,6 +14,7 @@ import { GetMessageController } from "./controllers/Message/GetMessageController
 import { GetGroupController } from "./controllers/Groups/GetGroupController";
 import { GetRoleController } from "./controllers/Role/GetRoleController";
 import { GetUserController } from "./controllers/User/GetUserController";
+import { GetSurveyController } from "./controllers/Survey/GetSurveyController";
 
 import { FinishCustomServiceController } from "./controllers/CustomService/FinishCustomServiceController";
 
@@ -35,6 +37,7 @@ const createCustomServiceController = new CreateCustomServiceController();
 const createRoleController = new CreateRoleController();
 const createMessageController = new CreateMessageController();
 const createGroupController = new CreateGroupController();
+const createSurveyController = new CreateSurveyController();
 
 const getUserController = new GetUserController();
 const getCustomServiceController = new GetCustomServiceController();
@@ -42,6 +45,7 @@ const getRoleController = new GetRoleController();
 const getMessageController = new GetMessageController();
 const getLastCustomServiceController = new GetLastCustomServiceController();
 const getGroupController = new GetGroupController();
+const getSurveyController = new GetSurveyController();
 
 const finishCustomService = new FinishCustomServiceController();
 const getWaInfosController = new GetWaInfosController();
@@ -54,6 +58,7 @@ router.post("/create-custom-service", createCustomServiceController.handle);
 router.post("/create-role", createRoleController.handle);
 router.post("/create-message", createMessageController.handle);
 router.post("/create-group", createGroupController.handle);
+router.post("/create-survey", createSurveyController.handle);
 
 router.get("/users", getUserController.handle);
 router.get("/custom-service", getCustomServiceController.handle);
@@ -64,6 +69,7 @@ router.get(
   getLastCustomServiceController.handle
 );
 router.get("/get-group", getGroupController.handle);
+router.get("/get-survey", getSurveyController.handle);
 
 router.put("/finish-service", finishCustomService.handle);
 router.put("/group-created", getWaInfosController.handle);
