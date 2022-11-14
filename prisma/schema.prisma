@@ -29,6 +29,7 @@ model User {
   Message         Message[]
   Groups          Groups?         @relation(fields: [groups_id], references: [group_id])
   groups_id       Int?
+  on_attendance   Boolean         @default(false)
 
   @@map("users")
 }
@@ -93,4 +94,15 @@ model Groups {
   participants  User[]
   created_on_wa Boolean @default(false)
   wa_group_id   String?
+}
+
+model Survey {
+  survey_id         Int      @id @default(autoincrement())
+  survey_text       String
+  survey_subject    String
+  survey_votes      Int      @default(0)
+  survey_sended     Boolean  @default(false)
+  survey_created_at DateTime @default(now())
+
+  @@map("survey")
 }
