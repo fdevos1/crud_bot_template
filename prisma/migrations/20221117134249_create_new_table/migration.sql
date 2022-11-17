@@ -17,6 +17,8 @@ CREATE TABLE `users` (
     `cellphone` VARCHAR(191) NOT NULL,
     `wa_id` VARCHAR(191) NOT NULL,
     `groups_id` INTEGER NULL,
+    `on_attendance` BOOLEAN NOT NULL DEFAULT false,
+    `survey_answer_id` INTEGER NULL,
 
     UNIQUE INDEX `users_cellphone_key`(`cellphone`),
     PRIMARY KEY (`user_id`)
@@ -85,8 +87,32 @@ CREATE TABLE `Groups` (
     PRIMARY KEY (`group_id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
+-- CreateTable
+CREATE TABLE `survey` (
+    `survey_id` INTEGER NOT NULL AUTO_INCREMENT,
+    `survey_text` VARCHAR(191) NOT NULL,
+    `survey_subject` VARCHAR(191) NOT NULL,
+    `survey_sended` BOOLEAN NOT NULL DEFAULT false,
+    `survey_send_hour` DATETIME(3) NULL,
+    `survey_created_at` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
+
+    PRIMARY KEY (`survey_id`)
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+-- CreateTable
+CREATE TABLE `SurveyAnswers` (
+    `answer_id` INTEGER NOT NULL AUTO_INCREMENT,
+    `answer_text` VARCHAR(191) NOT NULL,
+    `id_from_survey` INTEGER NULL,
+
+    PRIMARY KEY (`answer_id`)
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
 -- AddForeignKey
 ALTER TABLE `users` ADD CONSTRAINT `users_groups_id_fkey` FOREIGN KEY (`groups_id`) REFERENCES `Groups`(`group_id`) ON DELETE SET NULL ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE `users` ADD CONSTRAINT `users_survey_answer_id_fkey` FOREIGN KEY (`survey_answer_id`) REFERENCES `SurveyAnswers`(`answer_id`) ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE `attendants` ADD CONSTRAINT `attendants_role_id_fkey` FOREIGN KEY (`role_id`) REFERENCES `roles`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
@@ -102,3 +128,6 @@ ALTER TABLE `messages` ADD CONSTRAINT `messages_user_cellphone_fkey` FOREIGN KEY
 
 -- AddForeignKey
 ALTER TABLE `refreshToken` ADD CONSTRAINT `refreshToken_u_id_fkey` FOREIGN KEY (`u_id`) REFERENCES `Admin`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE `SurveyAnswers` ADD CONSTRAINT `SurveyAnswers_id_from_survey_fkey` FOREIGN KEY (`id_from_survey`) REFERENCES `survey`(`survey_id`) ON DELETE SET NULL ON UPDATE CASCADE;
