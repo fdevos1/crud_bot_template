@@ -6,7 +6,9 @@ export class GetSurveyController {
   async handle(req: Request, res: Response) {
     const service = new GetSurveyService();
 
-    const response = service.execute();
+    const response = await service.execute();
+
+    console.log(response);
 
     return res.json(response);
   }
