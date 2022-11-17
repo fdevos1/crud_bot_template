@@ -20,16 +20,18 @@ model Admin {
 }
 
 model User {
-  user_id         Int             @id @default(autoincrement())
-  name            String
-  user_created_at DateTime        @default(now())
-  cellphone       String          @unique
-  wa_id           String
-  custom_services CustomService[]
-  Message         Message[]
-  Groups          Groups?         @relation(fields: [groups_id], references: [group_id])
-  groups_id       Int?
-  on_attendance   Boolean         @default(false)
+  user_id          Int             @id @default(autoincrement())
+  name             String
+  user_created_at  DateTime        @default(now())
+  cellphone        String          @unique
+  wa_id            String
+  custom_services  CustomService[]
+  Message          Message[]
+  Groups           Groups?         @relation(fields: [groups_id], references: [group_id])
+  groups_id        Int?
+  on_attendance    Boolean         @default(false)
+  survey_answer    SurveyAnswers?  @relation(fields: [survey_answer_id], references: [answer_id])
+  survey_answer_id Int?
 
   @@map("users")
 }
@@ -97,12 +99,21 @@ model Groups {
 }
 
 model Survey {
-  survey_id         Int      @id @default(autoincrement())
+  survey_id         Int             @id @default(autoincrement())
   survey_text       String
   survey_subject    String
-  survey_votes      Int      @default(0)
-  survey_sended     Boolean  @default(false)
-  survey_created_at DateTime @default(now())
+  survey_votes      SurveyAnswers[]
+  survey_sended     Boolean         @default(false)
+  survey_send_hour  DateTime?
+  survey_created_at DateTime        @default(now())
 
   @@map("survey")
+}
+
+model SurveyAnswers {
+  answer_id      Int     @id @default(autoincrement())
+  answer_text    String
+  answer_users   User[]
+  survey         Survey? @relation(fields: [id_from_survey], references: [survey_id])
+  id_from_survey Int?
 }
