@@ -4,13 +4,11 @@ import { CreateSurveyAnswersService } from "../../services/Survey/CreateSurveyAn
 
 export class CreateSurveyAnswersController {
   async handle(req: Request, res: Response) {
-    const { data } = req.body;
-
-    console.log(data);
+    const answerList = req.body;
 
     const service = new CreateSurveyAnswersService();
 
-    const response = await service.execute(data);
+    const response = await service.execute(answerList);
 
     return res.json(response);
   }
