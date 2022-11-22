@@ -16,6 +16,7 @@ import { GetRoleController } from "./controllers/Role/GetRoleController";
 import { GetUserController } from "./controllers/User/GetUserController";
 import { GetSurveyController } from "./controllers/Survey/GetSurveyController";
 import { GetLastSurveyController } from "./controllers/Survey/GetLastSurveyController";
+import { GetSurveyAnswerController } from "./controllers/Survey/GetSurveyAnswerController";
 
 import { FinishCustomServiceController } from "./controllers/CustomService/FinishCustomServiceController";
 
@@ -52,6 +53,7 @@ const getLastCustomServiceController = new GetLastCustomServiceController();
 const getGroupController = new GetGroupController();
 const getSurveyController = new GetSurveyController();
 const getLastSurveyController = new GetLastSurveyController();
+const getSurveyAnswerController = new GetSurveyAnswerController();
 
 const finishCustomController = new FinishCustomServiceController();
 const getWaInfosController = new GetWaInfosController();
@@ -80,6 +82,7 @@ router.get(
 router.get("/get-group", getGroupController.handle);
 router.get("/get-survey", getSurveyController.handle);
 router.get("/last-survey", getLastSurveyController.handle);
+router.get("/get-survey-answer", getSurveyAnswerController.handle);
 
 router.put("/finish-service", finishCustomController.handle);
 router.put("/group-created", getWaInfosController.handle);
