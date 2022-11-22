@@ -82,7 +82,10 @@ router.get(
 router.get("/get-group", getGroupController.handle);
 router.get("/get-survey", getSurveyController.handle);
 router.get("/last-survey", getLastSurveyController.handle);
-router.get("/get-survey-answer", getSurveyAnswerController.handle);
+router.get(
+  "/get-survey-answer&survey=:survey_id",
+  getSurveyAnswerController.handle
+);
 
 router.put("/finish-service", finishCustomController.handle);
 router.put("/group-created", getWaInfosController.handle);

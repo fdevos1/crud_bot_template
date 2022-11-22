@@ -3,7 +3,7 @@ import { GetSurveyAnswerService } from "../../services/Survey/GetSurveyAnswersSe
 
 export class GetSurveyAnswerController {
   async handle(req: Request, res: Response) {
-    const { survey_id } = req.body;
+    const { survey_id } = req.params;
 
     const service = new GetSurveyAnswerService();
     const response = await service.execute(survey_id);

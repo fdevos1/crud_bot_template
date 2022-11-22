@@ -1,10 +1,10 @@
 import { prismaClient } from "../../prisma/PrismaClient";
 
 export class GetSurveyAnswerService {
-  async execute(survey_id: number) {
+  async execute(survey_id: string) {
     const surveyAnswer = await prismaClient.surveyAnswers.findFirst({
       where: {
-        id_from_survey: survey_id,
+        id_from_survey: Number(survey_id),
       },
     });
 
