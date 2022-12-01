@@ -26,14 +26,24 @@ model User {
   cellphone        String          @unique
   wa_id            String
   custom_services  CustomService[]
-  Message          Message[]
   Groups           Groups?         @relation(fields: [groups_id], references: [group_id])
   groups_id        Int?
   on_attendance    Boolean         @default(false)
   survey_answer    SurveyAnswers?  @relation(fields: [survey_answer_id], references: [answer_id])
   survey_answer_id Int?
+  UserMessage      UserMessage[]
 
   @@map("users")
+}
+
+model UserMessage {
+  message_id         Int      @id @default(autoincrement())
+  message_text       String
+  message_created_at DateTime @default(now())
+  message_from       User     @relation(fields: [user_cellphone], references: [cellphone])
+  user_cellphone     String
+
+  @@map("user_messages")
 }
 
 model Attendant {
@@ -49,26 +59,13 @@ model Attendant {
 }
 
 model CustomService {
-  id             String    @id @default(uuid())
-  created_at     DateTime  @default(now())
-  finished_at    DateTime  @default(now())
-  messages       Message[]
-  user           User?     @relation(fields: [user_cellphone], references: [cellphone])
+  id             String   @id @default(uuid())
+  created_at     DateTime @default(now())
+  finished_at    DateTime @default(now())
+  user           User?    @relation(fields: [user_cellphone], references: [cellphone])
   user_cellphone String
 
   @@map("services")
-}
-
-model Message {
-  id                 Int            @id @default(autoincrement())
-  message_created_at DateTime       @default(now())
-  text               String
-  custom_service     CustomService? @relation(fields: [custom_service_id], references: [id])
-  custom_service_id  String?
-  user               User           @relation(fields: [user_cellphone], references: [cellphone])
-  user_cellphone     String
-
-  @@map("messages")
 }
 
 model Role {

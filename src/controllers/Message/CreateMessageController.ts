@@ -15,17 +15,7 @@ export class CreateMessageController {
     if (user) {
       const createMessageService = new CreateMessageService();
 
-      const customService = await prismaClient.customService.findFirst({
-        where: {
-          user_cellphone: user.cellphone,
-        },
-      });
-
-      const response = await createMessageService.execute(
-        text,
-        customService!.id,
-        user.cellphone
-      );
+      const response = await createMessageService.execute(text, cellphone);
 
       return res.json(response);
     }

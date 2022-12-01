@@ -1,15 +1,10 @@
 import { prismaClient } from "../../prisma/PrismaClient";
 
 export class CreateMessageService {
-  async execute(
-    text: string,
-    custom_service_id: string,
-    user_cellphone: string
-  ) {
-    const message = await prismaClient.message.create({
+  async execute(message_text: string, user_cellphone: string) {
+    const message = await prismaClient.userMessage.create({
       data: {
-        text,
-        custom_service_id,
+        message_text,
         user_cellphone,
       },
     });
