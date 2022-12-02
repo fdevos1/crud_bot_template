@@ -26,6 +26,8 @@ import { GetWaInfosController } from "./controllers/Groups/GetWaInfosController"
 import { UserOnAttendanceController } from "./controllers/User/UserOnAttendance";
 import { UserOutAttendanceController } from "./controllers/User/UserOutAttendance";
 import { CreateSurveyAnswersController } from "./controllers/Survey/CreateSurveyAnswersController";
+import { UserOnTransmissionListController } from "./controllers/User/UserOnTransmissionListController";
+import { UserOutTransmissionListController } from "./controllers/User/UserOutTranmissionListController";
 
 const router = Router();
 
@@ -59,6 +61,9 @@ const finishCustomController = new FinishCustomServiceController();
 const getWaInfosController = new GetWaInfosController();
 const userOnAttendanceController = new UserOnAttendanceController();
 const userOutAttendanceController = new UserOutAttendanceController();
+const userOnTransmissionListController = new UserOnTransmissionListController();
+const userOutTransmissionListController =
+  new UserOutTransmissionListController();
 
 router.post("/create-admin", createAdminController.handle);
 router.post("/login", authenticateUserController.handle);
@@ -91,5 +96,13 @@ router.put("/finish-service", finishCustomController.handle);
 router.put("/group-created", getWaInfosController.handle);
 router.put("/user-on-attendance", userOnAttendanceController.handle);
 router.put("/user-out-attendance", userOutAttendanceController.handle);
+router.put(
+  "/user-on-transmission-list&cellphone=:cellphone",
+  userOnTransmissionListController.handle
+);
+router.put(
+  "/user-out-transmission-list&cellphone=:cellphone",
+  userOutTransmissionListController.handle
+);
 
 export { router };
