@@ -118,6 +118,6 @@ model SurveyAnswers {
 model SurveyVotes {
   survey_selected_answer SurveyAnswers? @relation(fields: [answer_survey_id], references: [answer_id])
   answer_survey_id       Int            @id
-  User                   User?          @relation(fields: [user_id_vote], references: [user_id])
-  user_id_vote           Int?
+  User                   User?          @relation(fields: [user_id_vote], references: [cellphone])
+  user_id_vote           String?
 }

@@ -1,7 +1,7 @@
 import { prismaClient } from "../../prisma/PrismaClient";
 
 export class CreateSurveyVoteService {
-  async execute(survey_id: number, user_id: number) {
+  async execute(survey_id: number, user_id: string) {
     const survey_vote = await prismaClient.surveyVotes.findMany({
       where: {
         answer_survey_id: survey_id,
