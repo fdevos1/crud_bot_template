@@ -5,6 +5,7 @@ export class CreateSurveyVoteService {
     const survey_vote = await prismaClient.surveyVotes.findFirst({
       where: {
         answer_survey_id: survey_id,
+        user_id_vote: user_id,
       },
     });
 
