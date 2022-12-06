@@ -30,9 +30,8 @@ model User {
   groups_id            Int?
   on_attendance        Boolean         @default(false)
   on_transmission_list Boolean         @default(false)
-  survey_answer        SurveyAnswers?  @relation(fields: [survey_answer_id], references: [answer_id])
-  survey_answer_id     Int?
   user_message         UserMessage[]
+  SurveyVotes          SurveyVotes[]
 
   @@map("users")
 }
@@ -109,9 +108,16 @@ model Survey {
 }
 
 model SurveyAnswers {
-  answer_id      Int     @id @default(autoincrement())
+  answer_id      Int           @id @default(autoincrement())
   answer_text    String
-  answer_users   User[]
-  survey         Survey? @relation(fields: [id_from_survey], references: [survey_id])
+  survey         Survey?       @relation(fields: [id_from_survey], references: [survey_id])
   id_from_survey Int?
+  survey_votes   SurveyVotes[]
+}
+
+model SurveyVotes {
+  survey_selected_answer SurveyAnswers @relation(fields: [answer_survey_id], references: [answer_id])
+  answer_survey_id       Int           @id
+  User                   User?         @relation(fields: [user_id_vote], references: [user_id])
+  user_id_vote           Int?
 }
