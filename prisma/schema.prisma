@@ -116,8 +116,9 @@ model SurveyAnswers {
 }
 
 model SurveyVotes {
+  id                     Int            @id @default(autoincrement())
   survey_selected_answer SurveyAnswers? @relation(fields: [answer_survey_id], references: [answer_id])
-  answer_survey_id       Int            @id
+  answer_survey_id       Int
   User                   User?          @relation(fields: [user_id_vote], references: [cellphone])
   user_id_vote           String
 }

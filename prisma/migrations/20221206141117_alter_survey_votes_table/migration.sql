@@ -18,10 +18,20 @@ CREATE TABLE `users` (
     `wa_id` VARCHAR(191) NOT NULL,
     `groups_id` INTEGER NULL,
     `on_attendance` BOOLEAN NOT NULL DEFAULT false,
-    `survey_answer_id` INTEGER NULL,
+    `on_transmission_list` BOOLEAN NOT NULL DEFAULT false,
 
     UNIQUE INDEX `users_cellphone_key`(`cellphone`),
     PRIMARY KEY (`user_id`)
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+-- CreateTable
+CREATE TABLE `user_messages` (
+    `message_id` INTEGER NOT NULL AUTO_INCREMENT,
+    `message_text` VARCHAR(191) NOT NULL,
+    `message_created_at` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
+    `user_cellphone` VARCHAR(191) NOT NULL,
+
+    PRIMARY KEY (`message_id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- CreateTable
@@ -41,17 +51,6 @@ CREATE TABLE `services` (
     `id` VARCHAR(191) NOT NULL,
     `created_at` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
     `finished_at` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
-    `user_cellphone` VARCHAR(191) NOT NULL,
-
-    PRIMARY KEY (`id`)
-) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-
--- CreateTable
-CREATE TABLE `messages` (
-    `id` INTEGER NOT NULL AUTO_INCREMENT,
-    `message_created_at` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
-    `text` VARCHAR(191) NOT NULL,
-    `custom_service_id` VARCHAR(191) NULL,
     `user_cellphone` VARCHAR(191) NOT NULL,
 
     PRIMARY KEY (`id`)
@@ -108,11 +107,20 @@ CREATE TABLE `SurveyAnswers` (
     PRIMARY KEY (`answer_id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
+-- CreateTable
+CREATE TABLE `SurveyVotes` (
+    `id` INTEGER NOT NULL AUTO_INCREMENT,
+    `answer_survey_id` INTEGER NOT NULL,
+    `user_id_vote` VARCHAR(191) NOT NULL,
+
+    PRIMARY KEY (`id`)
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
 -- AddForeignKey
 ALTER TABLE `users` ADD CONSTRAINT `users_groups_id_fkey` FOREIGN KEY (`groups_id`) REFERENCES `Groups`(`group_id`) ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE `users` ADD CONSTRAINT `users_survey_answer_id_fkey` FOREIGN KEY (`survey_answer_id`) REFERENCES `SurveyAnswers`(`answer_id`) ON DELETE SET NULL ON UPDATE CASCADE;
+ALTER TABLE `user_messages` ADD CONSTRAINT `user_messages_user_cellphone_fkey` FOREIGN KEY (`user_cellphone`) REFERENCES `users`(`cellphone`) ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE `attendants` ADD CONSTRAINT `attendants_role_id_fkey` FOREIGN KEY (`role_id`) REFERENCES `roles`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
@@ -121,13 +129,13 @@ ALTER TABLE `attendants` ADD CONSTRAINT `attendants_role_id_fkey` FOREIGN KEY (`
 ALTER TABLE `services` ADD CONSTRAINT `services_user_cellphone_fkey` FOREIGN KEY (`user_cellphone`) REFERENCES `users`(`cellphone`) ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE `messages` ADD CONSTRAINT `messages_custom_service_id_fkey` FOREIGN KEY (`custom_service_id`) REFERENCES `services`(`id`) ON DELETE SET NULL ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE `messages` ADD CONSTRAINT `messages_user_cellphone_fkey` FOREIGN KEY (`user_cellphone`) REFERENCES `users`(`cellphone`) ON DELETE RESTRICT ON UPDATE CASCADE;
-
--- AddForeignKey
 ALTER TABLE `refreshToken` ADD CONSTRAINT `refreshToken_u_id_fkey` FOREIGN KEY (`u_id`) REFERENCES `Admin`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE `SurveyAnswers` ADD CONSTRAINT `SurveyAnswers_id_from_survey_fkey` FOREIGN KEY (`id_from_survey`) REFERENCES `survey`(`survey_id`) ON DELETE SET NULL ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE `SurveyVotes` ADD CONSTRAINT `SurveyVotes_answer_survey_id_fkey` FOREIGN KEY (`answer_survey_id`) REFERENCES `SurveyAnswers`(`answer_id`) ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE `SurveyVotes` ADD CONSTRAINT `SurveyVotes_user_id_vote_fkey` FOREIGN KEY (`user_id_vote`) REFERENCES `users`(`cellphone`) ON DELETE RESTRICT ON UPDATE CASCADE;
