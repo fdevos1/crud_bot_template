@@ -87,7 +87,7 @@ model RefreshToken {
 
 model Groups {
   group_id      Int     @id @default(autoincrement())
-  subject       String
+  subject       String?
   group_name    String
   type          Int
   participants  User[]
