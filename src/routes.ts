@@ -7,6 +7,7 @@ import { CreateRoleController } from "./controllers/Role/CreateRoleController";
 import { CreateUserController } from "./controllers/User/CreateUserController";
 import { CreateAdminController } from "./useCases/createAdmin/CreateAdminController";
 import { CreateSurveyController } from "./controllers/Survey/CreateSurveyController";
+import { CreateMessageServiceController } from "./controllers/MessageService/CreateMessageServiceController";
 
 import { GetCustomServiceController } from "./controllers/CustomService/GetCustomServiceController";
 import { GetLastCustomServiceController } from "./controllers/CustomService/GetLastCustomServiceController";
@@ -17,6 +18,7 @@ import { GetUserController } from "./controllers/User/GetUserController";
 import { GetSurveyController } from "./controllers/Survey/GetSurveyController";
 import { GetLastSurveyController } from "./controllers/Survey/GetLastSurveyController";
 import { GetSurveyAnswerController } from "./controllers/Survey/GetSurveyAnswerController";
+import { GetMessageServiceController } from "./controllers/MessageService/GetMessageServiceController";
 
 import { FinishCustomServiceController } from "./controllers/CustomService/FinishCustomServiceController";
 
@@ -48,6 +50,7 @@ const createGroupController = new CreateGroupController();
 const createSurveyController = new CreateSurveyController();
 const createSurveyAnswerController = new CreateSurveyAnswersController();
 const createSurveyVoteController = new CreateSurveyVoteController();
+const createMessageServiceController = new CreateMessageServiceController();
 
 const getUserController = new GetUserController();
 const getCustomServiceController = new GetCustomServiceController();
@@ -58,6 +61,7 @@ const getGroupController = new GetGroupController();
 const getSurveyController = new GetSurveyController();
 const getLastSurveyController = new GetLastSurveyController();
 const getSurveyAnswerController = new GetSurveyAnswerController();
+const getMessageServiceController = new GetMessageServiceController();
 
 const finishCustomController = new FinishCustomServiceController();
 const getWaInfosController = new GetWaInfosController();
@@ -78,6 +82,7 @@ router.post("/create-group", createGroupController.handle);
 router.post("/create-survey", createSurveyController.handle);
 router.post("/create-survey-answer", createSurveyAnswerController.handle);
 router.post("/create-vote", createSurveyVoteController.handle);
+router.post("/create-message-service", createMessageServiceController.handle);
 
 router.get("/users", getUserController.handle);
 router.get("/custom-service", getCustomServiceController.handle);
@@ -94,6 +99,7 @@ router.get(
   "/get-survey-answer&survey=:survey_id",
   getSurveyAnswerController.handle
 );
+router.get("/get-message-service", getMessageServiceController.handle);
 
 router.put("/finish-service", finishCustomController.handle);
 router.put("/group-created", getWaInfosController.handle);

@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { GetCustomServiceService } from "../../services/CustomService/GetCustomServiceService";
+import { GetCustomServiceService } from "../../services/CustomService/GetCustomSvcService";
 
 export class GetCustomServiceController {
   async handle(req: Request, res: Response) {

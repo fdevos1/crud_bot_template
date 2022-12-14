@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { prismaClient } from "../../prisma/PrismaClient";
-import { CreateCustomServiceService } from "../../services/CustomService/CreateCustomServiceService";
+import { CreateCustomServiceService } from "../../services/CustomService/CreateCustomSvcService";
 
 export class CreateCustomServiceController {
   async handle(req: Request, res: Response) {

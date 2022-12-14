@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { GetLastCustomServiceService } from "../../services/CustomService/GetLastCustomServiceService";
+import { GetLastCustomServiceService } from "../../services/CustomService/GetLastCustomSvcService";
 
 export class GetLastCustomServiceController {
   async handle(req: Request, res: Response) {

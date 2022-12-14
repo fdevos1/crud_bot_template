@@ -76,6 +76,12 @@ model Role {
   @@map("roles")
 }
 
+model MessageService {
+  id         Int      @id @default(autoincrement())
+  text       String
+  created_at DateTime @default(now())
+}
+
 model RefreshToken {
   id        String @id @default(uuid())
   expiresIn Int
