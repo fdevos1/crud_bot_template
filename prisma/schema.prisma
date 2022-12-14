@@ -80,6 +80,7 @@ model MessageService {
   id         Int      @id @default(autoincrement())
   text       String
   created_at DateTime @default(now())
+  sended Boolean @default(false)
 }
 
 model RefreshToken {
