@@ -6,6 +6,9 @@ export class GetSurveyAnswerService {
       where: {
         id_from_survey: Number(survey_id),
       },
+      include: {
+        survey_votes: true,
+      },
     });
 
     return surveyAnswer;
