@@ -4,7 +4,7 @@ export class CreateSurveyVoteService {
   async execute(survey_id: number, user_id_vote: string, answer_text: string) {
     const survey_vote = await prismaClient.surveyVotes.findFirst({
       where: {
-        survey_id: Number(survey_id),
+        survey_id,
         user_id_vote,
       },
     });
@@ -14,7 +14,7 @@ export class CreateSurveyVoteService {
         data: {
           user_id_vote,
           answer_text,
-          survey_id: Number(survey_id),
+          survey_id,
         },
       });
 
