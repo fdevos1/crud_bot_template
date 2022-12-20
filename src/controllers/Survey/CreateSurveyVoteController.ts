@@ -3,13 +3,13 @@ import { CreateSurveyVoteService } from "../../services/Survey/CreateSurveyVoteS
 
 export class CreateSurveyVoteController {
   async handle(req: Request, res: Response) {
-    const { answer_survey_id, user_id_vote } = req.body;
+    const { survey_id, user_id_vote, answer_text } = req.body;
 
-    console.log(answer_survey_id, user_id_vote);
+    console.log(survey_id, user_id_vote);
 
     const service = new CreateSurveyVoteService();
 
-    const result = await service.execute(answer_survey_id, user_id_vote);
+    const result = await service.execute(survey_id, user_id_vote, answer_text);
 
     return res.json(result);
   }
