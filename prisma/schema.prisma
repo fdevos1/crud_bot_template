@@ -80,7 +80,7 @@ model MessageService {
   id         Int      @id @default(autoincrement())
   text       String
   created_at DateTime @default(now())
-  sended Boolean @default(false)
+  sended     Boolean  @default(false)
 }
 
 model RefreshToken {
@@ -103,29 +103,22 @@ model Groups {
 }
 
 model Survey {
-  survey_id         Int             @id @default(autoincrement())
+  survey_id         Int           @id @default(autoincrement())
   survey_text       String
   survey_subject    String
-  survey_votes      SurveyAnswers[]
-  survey_sended     Boolean         @default(false)
+  survey_votes      SurveyVotes[]
+  survey_sended     Boolean       @default(false)
   survey_send_hour  DateTime?
-  survey_created_at DateTime        @default(now())
+  survey_created_at DateTime      @default(now())
 
   @@map("survey")
 }
 
-model SurveyAnswers {
-  answer_id      Int           @id @default(autoincrement())
-  answer_text    String
-  survey         Survey?       @relation(fields: [id_from_survey], references: [survey_id])
-  id_from_survey Int?
-  survey_votes   SurveyVotes[]
-}
-
 model SurveyVotes {
-  id                     Int            @id @default(autoincrement())
-  survey_selected_answer SurveyAnswers? @relation(fields: [answer_survey_id], references: [answer_id])
-  answer_survey_id       Int
-  User                   User?          @relation(fields: [user_id_vote], references: [cellphone])
-  user_id_vote           String
+  id           Int     @id @default(autoincrement())
+  user         User?   @relation(fields: [user_id_vote], references: [cellphone])
+  user_id_vote String
+  answer_text  String
+  survey       Survey? @relation(fields: [survey_id], references: [survey_id])
+  survey_id    Int?
 }

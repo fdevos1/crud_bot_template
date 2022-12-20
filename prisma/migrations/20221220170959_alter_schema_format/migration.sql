@@ -65,6 +65,16 @@ CREATE TABLE `roles` (
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- CreateTable
+CREATE TABLE `MessageService` (
+    `id` INTEGER NOT NULL AUTO_INCREMENT,
+    `text` VARCHAR(191) NOT NULL,
+    `created_at` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
+    `sended` BOOLEAN NOT NULL DEFAULT false,
+
+    PRIMARY KEY (`id`)
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+-- CreateTable
 CREATE TABLE `refreshToken` (
     `id` VARCHAR(191) NOT NULL,
     `expiresIn` INTEGER NOT NULL,
@@ -77,7 +87,7 @@ CREATE TABLE `refreshToken` (
 -- CreateTable
 CREATE TABLE `Groups` (
     `group_id` INTEGER NOT NULL AUTO_INCREMENT,
-    `subject` VARCHAR(191) NOT NULL,
+    `subject` VARCHAR(191) NULL,
     `group_name` VARCHAR(191) NOT NULL,
     `type` INTEGER NOT NULL,
     `created_on_wa` BOOLEAN NOT NULL DEFAULT false,
@@ -99,19 +109,11 @@ CREATE TABLE `survey` (
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- CreateTable
-CREATE TABLE `SurveyAnswers` (
-    `answer_id` INTEGER NOT NULL AUTO_INCREMENT,
-    `answer_text` VARCHAR(191) NOT NULL,
-    `id_from_survey` INTEGER NULL,
-
-    PRIMARY KEY (`answer_id`)
-) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-
--- CreateTable
 CREATE TABLE `SurveyVotes` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
-    `answer_survey_id` INTEGER NOT NULL,
     `user_id_vote` VARCHAR(191) NOT NULL,
+    `answer_text` VARCHAR(191) NOT NULL,
+    `survey_id` INTEGER NULL,
 
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
@@ -132,10 +134,7 @@ ALTER TABLE `services` ADD CONSTRAINT `services_user_cellphone_fkey` FOREIGN KEY
 ALTER TABLE `refreshToken` ADD CONSTRAINT `refreshToken_u_id_fkey` FOREIGN KEY (`u_id`) REFERENCES `Admin`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE `SurveyAnswers` ADD CONSTRAINT `SurveyAnswers_id_from_survey_fkey` FOREIGN KEY (`id_from_survey`) REFERENCES `survey`(`survey_id`) ON DELETE SET NULL ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE `SurveyVotes` ADD CONSTRAINT `SurveyVotes_answer_survey_id_fkey` FOREIGN KEY (`answer_survey_id`) REFERENCES `SurveyAnswers`(`answer_id`) ON DELETE RESTRICT ON UPDATE CASCADE;
-
--- AddForeignKey
 ALTER TABLE `SurveyVotes` ADD CONSTRAINT `SurveyVotes_user_id_vote_fkey` FOREIGN KEY (`user_id_vote`) REFERENCES `users`(`cellphone`) ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE `SurveyVotes` ADD CONSTRAINT `SurveyVotes_survey_id_fkey` FOREIGN KEY (`survey_id`) REFERENCES `survey`(`survey_id`) ON DELETE SET NULL ON UPDATE CASCADE;
