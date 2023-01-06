@@ -98,7 +98,7 @@ router.get("/get-survey", getSurveyController.handle);
 router.get("/last-survey", getLastSurveyController.handle);
 router.get("/get-message-service", getMessageServiceController.handle);
 router.get(
-  "/get-manifestation-created",
+  "/get-manifestation-created&cpf=:cpf",
   getManifestationCreatedController.handle
 );
 

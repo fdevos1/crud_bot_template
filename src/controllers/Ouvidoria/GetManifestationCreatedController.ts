@@ -3,7 +3,7 @@ import { GetManifestationCreatedService } from "../../services/Ouvidoria/GetMani
 
 export class GetManifestationCreatedController {
   async handle(req: Request, res: Response) {
-    const { cpf } = req.body;
+    const { cpf } = req.params;
 
     const getManifestationCreatedService = new GetManifestationCreatedService();
 
