@@ -30,6 +30,7 @@ import { UserOnTransmissionListController } from "./controllers/User/UserOnTrans
 import { UserOutTransmissionListController } from "./controllers/User/UserOutTranmissionListController";
 import { CreateSurveyVoteController } from "./controllers/Survey/CreateSurveyVoteController";
 import { CreateManifestationController } from "./controllers/Ouvidoria/CreateManifestationController";
+import { GetManifestationCreatedController } from "./controllers/Ouvidoria/GetManifestationCreatedController";
 
 const router = Router();
 
@@ -60,6 +61,8 @@ const getGroupController = new GetGroupController();
 const getSurveyController = new GetSurveyController();
 const getLastSurveyController = new GetLastSurveyController();
 const getMessageServiceController = new GetMessageServiceController();
+const getManifestationCreatedController =
+  new GetManifestationCreatedController();
 
 const finishCustomController = new FinishCustomServiceController();
 const getWaInfosController = new GetWaInfosController();
@@ -93,8 +96,11 @@ router.get(
 router.get("/get-group", getGroupController.handle);
 router.get("/get-survey", getSurveyController.handle);
 router.get("/last-survey", getLastSurveyController.handle);
-
 router.get("/get-message-service", getMessageServiceController.handle);
+router.get(
+  "/get-manifestation-created",
+  getManifestationCreatedController.handle
+);
 
 router.put("/finish-service", finishCustomController.handle);
 router.put("/group-created", getWaInfosController.handle);
