@@ -29,6 +29,7 @@ import { UserOutAttendanceController } from "./controllers/User/UserOutAttendanc
 import { UserOnTransmissionListController } from "./controllers/User/UserOnTransmissionListController";
 import { UserOutTransmissionListController } from "./controllers/User/UserOutTranmissionListController";
 import { CreateSurveyVoteController } from "./controllers/Survey/CreateSurveyVoteController";
+import { CreateManifestationController } from "./controllers/Ouvidoria/CreateManifestationController";
 
 const router = Router();
 
@@ -48,6 +49,7 @@ const createGroupController = new CreateGroupController();
 const createSurveyController = new CreateSurveyController();
 const createSurveyVoteController = new CreateSurveyVoteController();
 const createMessageServiceController = new CreateMessageServiceController();
+const createManifestationController = new CreateManifestationController();
 
 const getUserController = new GetUserController();
 const getCustomServiceController = new GetCustomServiceController();
@@ -78,6 +80,7 @@ router.post("/create-group", createGroupController.handle);
 router.post("/create-survey", createSurveyController.handle);
 router.post("/create-vote", createSurveyVoteController.handle);
 router.post("/create-message-service", createMessageServiceController.handle);
+router.post("/create-manifestation", createManifestationController.handle);
 
 router.get("/users", getUserController.handle);
 router.get("/custom-service", getCustomServiceController.handle);

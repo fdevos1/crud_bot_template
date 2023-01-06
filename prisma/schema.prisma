@@ -122,3 +122,18 @@ model SurveyVotes {
   survey       Survey? @relation(fields: [survey_id], references: [survey_id])
   survey_id    Int?
 }
+
+model Ouvidoria {
+  id            String    @id @default(uuid()) // ID
+  first_name    String // Primeiro nome do usuário
+  last_name     String // Sobrenome usuário
+  cellphone     String // Celular usuário
+  user_email    String // E-mail usuário
+  cpf           String
+  type          Int // Tipo da manifestação
+  text          String // Texto da manifestação
+  created_at    DateTime  @default(now()) // Criada em
+  answered      Boolean   @default(false) // Manisfestação respondida - Sim ou Não
+  answered_text String? // Texto da resposta 
+  answered_when DateTime? // Data da resposta
+}
